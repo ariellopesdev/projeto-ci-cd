@@ -1,0 +1,19 @@
+name: Alerts to Discord
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        uses: Ilshidur/action-discord@master
+        with:
+          args: "🚀 Novo commit ou merge no branch **main** do repositório ${{ github.repository }} por ${{ github.actor }}!"
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
